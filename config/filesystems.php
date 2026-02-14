@@ -30,14 +30,24 @@ return [
 
     'disks' => [
 
+        // ✅ Disk par défaut Laravel (ne pas pointer vers /private)
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
-            'serve' => true,
+            'root' => storage_path('app'),
             'throw' => false,
             'report' => false,
         ],
 
+        // ✅ Disk privé pour ebooks payants (non accessible par URL)
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
+            'visibility' => 'private',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        // ✅ Disk public (images, assets accessibles via /storage)
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -47,6 +57,7 @@ return [
             'report' => false,
         ],
 
+        // ✅ Cloud (optionnel)
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
